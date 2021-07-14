@@ -1,1 +1,2 @@
 The python code can convert Plaintext and a key to Ciphertext and convert Ciphertext and a key to the Plaintext
+When version 1.0 releases it will run in pygame and have a GUI for user convenience
