@@ -108,13 +108,17 @@ def find_plain_text(key , ciphered_text):
     deciphered_with_special = special_char_insert(deciphered_word)
     print(deciphered_with_special)
 
+##Finds the key when given plain and ciphered text
+def find_key(plain_txt, ciph_txt):
+    pass
+
 #------------------------------------------------------------------#
 
 ##Removes special text from the string so it can be added back later
 def special_char_removal(text):
     index_check = 0
     for letter in text:
-        if letter in " ?!1234567890":
+        if letter in " ?!1234567890@#$%^&*()-_=+/.,<>\|}[]{;:'`~":
             ##adds the special characters to a list with their location and value
             special_char_loc.append(index_check)
             special_char_in_text.append(text[index_check])
@@ -205,12 +209,23 @@ def put_word_together(set_to_convert):
 #-------------------------------------------------------------------#
 
 ##figure out what were are doing
-output_type = int(input("Use Ciphertext and key to find Plaintext - 1 or Create Ciphertext with a keyword and Plaintext - 2 "))
+while True:
+    try:
+        output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
+        break
+    except ValueError:
+        print("You entered a string. Please enter a whole number")
+        
 
 ##make sure the entered information is valid
-while (output_type > 2 and output_type < 1):
-    print("Invalid response try again")
-    output_type = input("Use Ciphertext and key to find Plaintext - 1 or Create Ciphertext with a keyword and Plaintext - 2 ")
+while True:
+    try:
+        while (output_type > 3 or output_type < 1):
+            print("Invalid response try again")
+            output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
+        break
+    except ValueError:
+        print("You entered a string. Please enter a whole number")
 
 ##Finds what operation were doing and procedes accordingly
 if output_type == 1:
@@ -218,9 +233,15 @@ if output_type == 1:
     key_word = input("Enter the keyword ").lower()
     find_plain_text(key_word, ciph_text)
     input("Press Enter to close")
-else:
+elif output_type == 2:
     plain_text = input("Enter the text you'd like to convert ").lower()
     key_word = input("Enter the keyword ").lower()
     find_ciphered_text(plain_text, key_word)
     input("Press Enter to close")
+else:
+    ciph_text = input("Enter the cipheredtext ").lower()
+    plain_text = input("Enter the plaintext ").lower()
+    find_key(ciph_text, plain_text)
+    input("Press enter to close")
+
 
