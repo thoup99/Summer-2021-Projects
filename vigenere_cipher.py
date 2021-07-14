@@ -82,22 +82,61 @@ convert_letter_to_num = {
     "z": 26,
 }
 
+##Creates variables for special case characters
+special_char_loc = []
+special_char_in_text = []
+#special_characters = [" ", "!", "?", "1", "2", "3", "3", "4", "5", "6", "7", "8", "9", "0"]
+
 
 ##Creates a ciphered text string with a key and plaintext
 def find_ciphered_text(key, c_text):
-    fct_numset1 = convert_l_to_n(key, False)
+    key_no_space = special_char_removal(key)
+    fct_numset1 = convert_l_to_n(key_no_space, False)
     fct_numset2 = convert_l_to_n(c_text, False)
     numb_set = get_ciphered_num(fct_numset1, fct_numset2)
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
-    print(deciphered_word)
+    deciphered_with_special = special_char_insert(deciphered_word)
+    print(deciphered_with_special)
 
 ##Finds the plain text when given the key and ciphered text
 def find_plain_text(key , ciphered_text):
+    ciphered_text_no_space = special_char_removal(ciphered_text)
     fpt_set1 = convert_l_to_n(key, False)
-    fpt_set2 = convert_l_to_n(ciphered_text, True)
+    fpt_set2 = convert_l_to_n(ciphered_text_no_space, True)
     numb_set = get_plaintext_num(fpt_set1, fpt_set2)
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
-    print(deciphered_word)
+    deciphered_with_special = special_char_insert(deciphered_word)
+    print(deciphered_with_special)
+
+#------------------------------------------------------------------#
+
+##Removes special text from the string so it can be added back later
+def special_char_removal(text):
+    index_check = 0
+    for letter in text:
+        if letter in " ?!1234567890":
+            ##adds the special characters to a list with their location and value
+            special_char_loc.append(index_check)
+            special_char_in_text.append(text[index_check])
+        index_check += 1
+    ##Removes special characters from the String
+    for sp_char in reversed(special_char_loc):
+        text = text[:sp_char] + text[sp_char+1:]
+    return(text)
+
+
+##Readds the special characters that were removed at the start
+def special_char_insert (text):
+    loc_it = 0
+    for location in special_char_loc:
+        ##Assigns the char and location to variables
+        loc = special_char_loc[loc_it]
+        character = special_char_in_text[loc_it]
+        ##adds the char to the locations
+        text = text[:loc] + character + text[loc:]
+        loc_it += 1
+    return(text)
+
 
 #------------------------------------------------------------------#
 
