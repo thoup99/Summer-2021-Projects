@@ -96,7 +96,9 @@ def find_ciphered_text(key, c_text):
     numb_set = get_ciphered_num(fct_numset1, fct_numset2)
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
     deciphered_with_special = special_char_insert(deciphered_word)
+    log_results(deciphered_with_special, "Ciphered text")
     print(deciphered_with_special)
+
 
 ##Finds the plain text when given the key and ciphered text ##op type 1
 def find_plain_text(key , ciphered_text):
@@ -106,6 +108,7 @@ def find_plain_text(key , ciphered_text):
     numb_set = get_plaintext_num(fpt_set1, fpt_set2)
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
     deciphered_with_special = special_char_insert(deciphered_word)
+    log_results(deciphered_with_special, "Plaintext")
     print(deciphered_with_special)
 
 
@@ -117,6 +120,7 @@ def find_key(ciph_txt, plain_txt):
     fk_set2 = convert_l_to_n(plain_txt_no_space, False)
     fk_numbset = get_plaintext_num(fk_set2, fk_set1)
     fk_known = put_word_together(convert_n_to_l(fk_numbset))
+    log_results(fk_known, "Key")
     print(fk_known)
 
 #------------------------------------------------------------------#
@@ -216,7 +220,12 @@ def put_word_together(set_to_convert):
         full_string = full_string + x
     return(full_string)
 
+#-------------------------------------------------------------------#
 
+#writes the info needed into the file
+def log_results(result, prefix):
+    with open("log.txt", "a") as log:
+        log.write("\n"+prefix+": "+ result)
 
 #-------------------------------------------------------------------#
 
@@ -261,7 +270,3 @@ while True:
         print("You entered a string. Please enter a whole number")
 
 output_method(output_type)
-
-
-
-
