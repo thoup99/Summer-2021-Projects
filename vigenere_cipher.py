@@ -88,7 +88,7 @@ special_char_in_text = []
 #special_characters = [" ", "!", "?", "1", "2", "3", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 
-##Creates a ciphered text string with a key and plaintext
+##Creates a ciphered text string with a key and plaintext ##op type 2
 def find_ciphered_text(key, c_text):
     key_no_space = special_char_removal(key)
     fct_numset1 = convert_l_to_n(key_no_space, False)
@@ -98,7 +98,7 @@ def find_ciphered_text(key, c_text):
     deciphered_with_special = special_char_insert(deciphered_word)
     print(deciphered_with_special)
 
-##Finds the plain text when given the key and ciphered text
+##Finds the plain text when given the key and ciphered text ##op type 1
 def find_plain_text(key , ciphered_text):
     ciphered_text_no_space = special_char_removal(ciphered_text)
     fpt_set1 = convert_l_to_n(key, False)
@@ -108,9 +108,16 @@ def find_plain_text(key , ciphered_text):
     deciphered_with_special = special_char_insert(deciphered_word)
     print(deciphered_with_special)
 
-##Finds the key when given plain and ciphered text
-def find_key(plain_txt, ciph_txt):
-    pass
+
+##Finds the key when given plain and ciphered text ##op type 3
+def find_key(ciph_txt, plain_txt):
+    ciph_txt_no_space = special_char_removal(ciph_txt)
+    plain_txt_no_space = special_char_removel_nolog(plain_txt)
+    fk_set1 = convert_l_to_n(ciph_txt_no_space, True)
+    fk_set2 = convert_l_to_n(plain_txt_no_space, False)
+    fk_numbset = get_plaintext_num(fk_set2, fk_set1)
+    fk_known = put_word_together(convert_n_to_l(fk_numbset))
+    print(fk_known)
 
 #------------------------------------------------------------------#
 
@@ -124,6 +131,11 @@ def special_char_removal(text):
             special_char_in_text.append(text[index_check])
         index_check += 1
     ##Removes special characters from the String
+    for sp_char in reversed(special_char_loc):
+        text = text[:sp_char] + text[sp_char+1:]
+    return(text)
+
+def special_char_removel_nolog(text):
     for sp_char in reversed(special_char_loc):
         text = text[:sp_char] + text[sp_char+1:]
     return(text)
@@ -208,6 +220,27 @@ def put_word_together(set_to_convert):
 
 #-------------------------------------------------------------------#
 
+##Finds what operation were doing and procedes accordingly
+def output_method (op_type):
+    if op_type == 1:
+        ciph_text = input("Enter the ciphered text ").lower()
+        key_word = input("Enter the keyword ").lower()
+        find_plain_text(key_word, ciph_text)
+        input("Press Enter to close")
+    elif op_type == 2:
+        plain_text = input("Enter the text you'd like to convert ").lower()
+        key_word = input("Enter the keyword ").lower()
+        find_ciphered_text(plain_text, key_word)
+        input("Press Enter to close")
+    else:
+        ciph_text = input("Enter the cipheredtext ").lower()
+        plain_text = input("Enter the plaintext ").lower()
+        find_key(ciph_text, plain_text)
+        input("Press enter to close")
+
+#-------------------------------------------------------------------#
+
+
 ##figure out what were are doing
 while True:
     try:
@@ -227,21 +260,8 @@ while True:
     except ValueError:
         print("You entered a string. Please enter a whole number")
 
-##Finds what operation were doing and procedes accordingly
-if output_type == 1:
-    ciph_text = input("Enter the ciphered text ").lower()
-    key_word = input("Enter the keyword ").lower()
-    find_plain_text(key_word, ciph_text)
-    input("Press Enter to close")
-elif output_type == 2:
-    plain_text = input("Enter the text you'd like to convert ").lower()
-    key_word = input("Enter the keyword ").lower()
-    find_ciphered_text(plain_text, key_word)
-    input("Press Enter to close")
-else:
-    ciph_text = input("Enter the cipheredtext ").lower()
-    plain_text = input("Enter the plaintext ").lower()
-    find_key(ciph_text, plain_text)
-    input("Press enter to close")
+output_method(output_type)
+
+
 
 
