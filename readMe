@@ -1,4 +1,2 @@
 The python code can use a combination of Ciphered text, Plaintext, and keyword to find whatever of those three is missing
-When version 1.0 releases it will run in pygame and have a GUI for user convenience
-
-Make sure your have pygame by opening the command line on windows and type "pip install pygame"
+When version 1.0 releases it will have a GUI for user convenience
