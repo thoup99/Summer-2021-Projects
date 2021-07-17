@@ -1,3 +1,8 @@
+from tkinter import *
+import tkinter
+
+root = Tk(className="Vigenere Cipher")
+
 ##Creates dictionaries that are used for conversions
 convert_num_to_letter = {
     2: "a",
@@ -97,7 +102,7 @@ def find_ciphered_text(key, c_text):
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
     deciphered_with_special = special_char_insert(deciphered_word)
     log_results(deciphered_with_special, "Ciphered text")
-    print(deciphered_with_special)
+    return(deciphered_with_special)
 
 
 ##Finds the plain text when given the key and ciphered text ##op type 1
@@ -109,7 +114,7 @@ def find_plain_text(key , ciphered_text):
     deciphered_word = put_word_together(convert_n_to_l(numb_set))
     deciphered_with_special = special_char_insert(deciphered_word)
     log_results(deciphered_with_special, "Plaintext")
-    print(deciphered_with_special)
+    return(deciphered_with_special)
 
 
 ##Finds the key when given plain and ciphered text ##op type 3
@@ -121,7 +126,7 @@ def find_key(ciph_txt, plain_txt):
     fk_numbset = get_plaintext_num(fk_set2, fk_set1)
     fk_known = put_word_together(convert_n_to_l(fk_numbset))
     log_results(fk_known, "Key")
-    print(fk_known)
+    return(fk_known)
 
 #------------------------------------------------------------------#
 
@@ -230,28 +235,30 @@ def log_results(result, prefix):
 #-------------------------------------------------------------------#
 
 ##Finds what operation were doing and procedes accordingly
-def output_method (op_type):
+def output_method (op_type, input1, input2):
     if op_type == 1:
-        ciph_text = input("Enter the ciphered text ").lower()
-        key_word = input("Enter the keyword ").lower()
-        find_plain_text(key_word, ciph_text)
-        input("Press Enter to close")
+        ciph_text = input1.lower()
+        key_word = input2.lower()
+        a_gui = find_plain_text(key_word, ciph_text)
+
     elif op_type == 2:
-        plain_text = input("Enter the text you'd like to convert ").lower()
-        key_word = input("Enter the keyword ").lower()
-        find_ciphered_text(plain_text, key_word)
-        input("Press Enter to close")
+        plain_text = input1.lower()
+        key_word = input2.lower()
+        a_gui = find_ciphered_text(plain_text, key_word)
+
     else:
-        ciph_text = input("Enter the cipheredtext ").lower()
-        plain_text = input("Enter the plaintext ").lower()
-        find_key(ciph_text, plain_text)
-        input("Press enter to close")
+        ciph_text = input1.lower()
+        plain_text = input2.lower()
+        a_gui = find_key(ciph_text, plain_text)
+
+    return(a_gui)
+
 
 #-------------------------------------------------------------------#
 
 
 ##figure out what were are doing
-while True:
+'''while True:
     try:
         output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
         break
@@ -267,6 +274,99 @@ while True:
             output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
         break
     except ValueError:
-        print("You entered a string. Please enter a whole number")
+        print("You entered a string. Please enter a whole number")'''
 
-output_method(output_type)
+#-------------------------------------GUI--------------------------#
+
+#Sets up the window
+root.geometry("350x280")
+root.configure(bg="#181818")
+
+##Defines colors
+bg_color_main = "#181818"
+bg_color1 = "#282828"
+fg_color1 = "#b3b3b3"
+
+##Defines variables
+op = 1
+
+##Functions
+
+def plaintext_but():
+    global op
+    entry1_text.config(text= "Enter the Cipheredtext")
+    entry2_text.config(text= "Enter the Keyword")
+    search_what.config(text = "Currently solving for Plaintext")
+    op = 1
+
+
+def ciphertext_but():
+    global op
+    entry1_text.config(text= "Enter the Plaintext")
+    entry2_text.config(text= "Enter the Keyword")
+    search_what.config(text = "Currently solving for Cipheredtext")
+    op = 2
+
+
+def key_but():
+    global op
+    entry1_text.config(text= "Enter the Cipheredtext")
+    entry2_text.config(text= "Enter the Plaintext")
+    search_what.config(text = "Currently solving for Keyword")
+    op = 3
+
+
+def enter_but():
+    plaintext_button["state"] = tkinter.DISABLED
+    ciphertext_button["state"] = tkinter.DISABLED
+    key_button["state"] = tkinter.DISABLED
+    enter_button["state"] = tkinter.DISABLED
+    v1 = entry1.get()
+    v2 = entry2.get()
+    vg_ciph_ans = output_method(op, v1, v2)
+    ans_lable.config(text = vg_ciph_ans)
+
+
+##Creates our widgets
+info_label = Label(root, text= "Select what information you would like to solve for or produce", fg= fg_color1, bg= bg_color_main)
+blank_lable= Label(root, text= " ", fg= fg_color1, bg= bg_color_main)
+blank_lable1= Label(root, text= " ", fg= fg_color1, bg= bg_color_main)
+blank_lable2= Label(root, text= " ", fg= fg_color1, bg= bg_color_main)
+
+#Creates the buttons we will click on
+plaintext_button = Button(root, text="  Plaintext  ", fg = fg_color1, bg = bg_color1, command= plaintext_but)
+ciphertext_button = Button(root, text="  Ciphertext  ", fg = fg_color1, bg = bg_color1, command= ciphertext_but)
+key_button = Button(root, text="  Key  ", fg = fg_color1, bg = bg_color1, command= key_but)
+
+#gets info
+entry1_text = Label(root, text= "Enter the Cipheredtext", fg= fg_color1, bg= bg_color_main)
+entry1 = Entry(root, width = 50, fg = fg_color1, bg = bg_color1)
+
+entry2_text = Label(root, text= "Enter the Keyword", fg= fg_color1, bg= bg_color_main)
+entry2 = Entry(root, width = 50, fg = fg_color1, bg = bg_color1)
+
+#final two lines + enter button
+search_what = Label(root, text= "Currently solving for Plaintext", fg= fg_color1, bg= bg_color_main)
+ans_lable = Label(root, text= "Will update when 'Enter' is pressed", fg= fg_color1, bg= bg_color_main)
+enter_button = Button(root, text= "  ENTER  ",fg = fg_color1, bg = bg_color1, command= enter_but)
+
+
+#Puts the widgets on the screen
+info_label.grid(columnspan=3)
+plaintext_button.grid(column=0, row=2)
+ciphertext_button.grid(column=1, row=2)
+key_button.grid(column=2, row=2)
+blank_lable2.grid(row= 9)
+search_what.grid(columnspan= 3, row= 10)
+ans_lable.grid(columnspan= 3 , row= 11)
+enter_button.grid(column= 1, row = 12)
+
+#input fields
+blank_lable.grid(row = 3)
+entry1_text.grid(columnspan = 3, row =4)
+entry1.grid(columnspan= 3, row =5)
+blank_lable1.grid(row = 6)
+entry2_text.grid(columnspan= 3, row =7)
+entry2.grid(columnspan= 3, row =8)
+
+root.mainloop()
