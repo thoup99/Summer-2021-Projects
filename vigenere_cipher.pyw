@@ -253,29 +253,6 @@ def output_method (op_type, input1, input2):
 
     return(a_gui)
 
-
-#-------------------------------------------------------------------#
-
-
-##figure out what were are doing
-'''while True:
-    try:
-        output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
-        break
-    except ValueError:
-        print("You entered a string. Please enter a whole number")
-        
-
-##make sure the entered information is valid
-while True:
-    try:
-        while (output_type > 3 or output_type < 1):
-            print("Invalid response try again")
-            output_type = int(input("Use Ciphertext and key to find Plaintext - 1, Create Ciphertext with a keyword and Plaintext - 2, or Find a keyword with the Plaintext and Ciphertext - 3 "))
-        break
-    except ValueError:
-        print("You entered a string. Please enter a whole number")'''
-
 #-------------------------------------GUI--------------------------#
 
 #Sets up the window
