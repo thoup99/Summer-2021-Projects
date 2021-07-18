@@ -55,7 +55,8 @@ convert_num_to_letter = {
     49: "v",
     50: "w",
     51: "x",
-    52: "y"
+    52: "y",
+    53: "z"
 }
 
 convert_letter_to_num = {
