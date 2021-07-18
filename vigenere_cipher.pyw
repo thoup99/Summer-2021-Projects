@@ -294,10 +294,9 @@ def key_but():
 
 
 def enter_but():
-    plaintext_button["state"] = tkinter.DISABLED
-    ciphertext_button["state"] = tkinter.DISABLED
-    key_button["state"] = tkinter.DISABLED
-    enter_button["state"] = tkinter.DISABLED
+    global special_char_loc, special_char_in_text
+    special_char_loc = []
+    special_char_in_text = []
     v1 = entry1.get()
     v2 = entry2.get()
     vg_ciph_ans = output_method(op, v1, v2)
