@@ -90,7 +90,6 @@ convert_letter_to_num = {
 ##Creates variables for special case characters
 special_char_loc = []
 special_char_in_text = []
-#special_characters = [" ", "!", "?", "1", "2", "3", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 
 ##Creates a ciphered text string with a key and plaintext ##op type 2
@@ -253,6 +252,7 @@ def output_method (op_type, input1, input2):
 
     return(a_gui)
 
+
 #-------------------------------------GUI--------------------------#
 
 #Sets up the window
@@ -295,8 +295,8 @@ def key_but():
 
 def enter_but():
     global special_char_loc, special_char_in_text
-    special_char_loc = []
     special_char_in_text = []
+    special_char_loc = []
     v1 = entry1.get()
     v2 = entry2.get()
     vg_ciph_ans = output_method(op, v1, v2)
