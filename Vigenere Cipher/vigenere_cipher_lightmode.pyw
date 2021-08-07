@@ -258,12 +258,12 @@ def output_method (op_type, input1, input2):
 
 #Sets up the window
 root.geometry("350x280")
-root.configure(bg="#181818")
+root.configure(bg="#FFFFFF")
 
 ##Defines colors
-bg_color_main = "#181818"
-bg_color1 = "#282828"
-fg_color1 = "#b3b3b3"
+bg_color_main = "#FFFFFF"
+bg_color1 = "#B3B3B3"
+fg_color1 = "#121212"
 
 ##Defines variables
 op = 1
