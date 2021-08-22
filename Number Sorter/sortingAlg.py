@@ -23,7 +23,16 @@ def sort2(set):
         set.pop(to_add_loc)
         set.insert(x, to_add)
     return(set)
-        
-to_sort = [3, 7, 1, 9, 20 , 4]
+
+def sortbub(set):
+    for iteration in range(len(set)):
+        for loc in range(len(set) - iteration - 1):
+            if set[loc] > set[loc+1]:
+                set[loc], set[loc + 1] = set[loc + 1], set[loc]
+    return(set)
+
+
+to_sort = [3, 7, 1, 9, 20 , 4, 3270, 534, 847, 30, 47, 24, 68, 65]
 #print(sort(to_sort))
-print(sort2(to_sort))
+#print(sort2(to_sort))
+print(sortbub(to_sort))
